@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="icon">‘@mipmap/icon</string>
+    <string name="icon">@mipmap/icon</string>
 </resources>
