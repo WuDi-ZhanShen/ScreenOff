@@ -3,10 +3,11 @@
     package="com.tile.screenoff">
 
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:icon="@string/icon"
-        android:label="关屏"
+        android:icon="@mipmap/icon"
+        android:label="息屏运行"
         android:theme="@android:style/Theme.DeviceDefault.Dialog">
 
         <activity
@@ -59,6 +60,10 @@
             android:exported="true" />
         <activity
             android:name=".ScrOn"
+            android:excludeFromRecents="true"
+            android:exported="true" />
+        <activity
+            android:name=".Set"
             android:excludeFromRecents="true"
             android:exported="true" />
     </application>

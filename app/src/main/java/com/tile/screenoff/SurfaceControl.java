@@ -23,6 +23,8 @@ public final class SurfaceControl {
     private static Method getBuiltInDisplayMethod;
     private static Method setDisplayPowerModeMethod;
 
+
+
     private  SurfaceControl() {
 
     }

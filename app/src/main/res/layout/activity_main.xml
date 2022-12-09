@@ -27,10 +27,9 @@
         android:layout_height="wrap_content"
         android:checked="true"
         />
-
     <TextView
         android:id="@+id/t"
-        android:textColor="#ff4444"
+        android:textColor="@android:color/holo_blue_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

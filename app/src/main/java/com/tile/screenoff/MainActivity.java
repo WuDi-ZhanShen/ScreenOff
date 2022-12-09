@@ -1,18 +1,16 @@
 package com.tile.screenoff;
 
-
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -37,7 +35,7 @@ public class MainActivity extends Activity {
             if (Shizuku.isPreV11()) {
                 s1.setEnabled(false);
                 t.setText("Shizuku pre-v11 is not supported");
-                isServiceOK=false;
+                isServiceOK = false;
             }
         }
     };
@@ -47,7 +45,7 @@ public class MainActivity extends Activity {
         public void onBinderDead() {
             t.setText("Binder deaded");
             s1.setEnabled(false);
-            isServiceOK=false;
+            isServiceOK = false;
         }
     };
 
@@ -56,8 +54,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startActivity(new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, Uri.parse("package:" + getPackageName())));
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_main);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title_bar);
         s1 = findViewById(R.id.s1);
         B = findViewById(R.id.b);
         C = findViewById(R.id.c);
@@ -73,18 +72,6 @@ public class MainActivity extends Activity {
                 }
             }
         });
-        if (!KeyDetect.GlobalControl){
-            t.setText("\n点击开启全局音量按键控制亮、灭屏\n");
-            t.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString(":settings:fragment_args_key", new ComponentName(getPackageName(), KeyDetect.class.getName()).flattenToString());
-                    startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).putExtra(":settings:fragment_args_key", new ComponentName(getPackageName(), KeyDetect.class.getName()).flattenToString()).putExtra(":settings:show_fragment_args", bundle));
-
-                }
-            });
-        }
 
         Shizuku.addBinderReceivedListenerSticky(BINDER_RECEIVED_LISTENER);
         Shizuku.addBinderDeadListener(BINDER_DEAD_LISTENER);
@@ -106,12 +93,12 @@ public class MainActivity extends Activity {
                 c = true;
             if (e.getClass() == IllegalStateException.class) {
                 b = false;
-                Toast.makeText(this, "shizuku未运行", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Shizuku未运行", Toast.LENGTH_SHORT).show();
             }
         }
-        B.setText(b ? "shizuku\n已运行" : "shizuku\n未运行");
+        B.setText(b ? "Shizuku\n已运行" : "Shizuku\n未运行");
         B.setTextColor(b ? m : 0x77ff0000);
-        C.setText(c ? "shizuku\n已授权" : "shizuku\n未授权");
+        C.setText(c ? "Shizuku\n已授权" : "Shizuku\n未授权");
         C.setTextColor(c ? m : 0x77ff0000);
     }
 
@@ -121,7 +108,7 @@ public class MainActivity extends Activity {
         Shizuku.removeBinderReceivedListener(BINDER_RECEIVED_LISTENER);
         Shizuku.removeBinderDeadListener(BINDER_DEAD_LISTENER);
         Shizuku.removeRequestPermissionResultListener(REQUEST_PERMISSION_RESULT_LISTENER);
-        unbindUserService();
+        if (!KeyDetect.GlobalControl) unbindUserService();
     }
 
     private void onRequestPermissionsResult(int i, int i1) {
@@ -133,14 +120,14 @@ public class MainActivity extends Activity {
         public void onServiceConnected(ComponentName componentName, IBinder binder) {
             if (binder != null && binder.pingBinder()) {
                 userService = IUserService.Stub.asInterface(binder);
-                isServiceOK=true;
+                isServiceOK = true;
 
             }
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
-            isServiceOK=false;
+            isServiceOK = false;
         }
     };
 
@@ -174,12 +161,6 @@ public class MainActivity extends Activity {
 
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        finish();
-    }
-
-    @Override
     public void onBackPressed() {
         finish();
     }
@@ -188,12 +169,17 @@ public class MainActivity extends Activity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         super.onKeyDown(keyCode, event);
         if (!isServiceOK) return true;
-        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)
+        if (keyCode ==25)
             s1.setChecked(true);
-        if (keyCode == KeyEvent.KEYCODE_VOLUME_UP)
+        if (keyCode ==24)
             s1.setChecked(false);
         return true;
     }
 
 
+    public void e(View view) {
+
+            startActivity(new Intent(MainActivity.this, Set.class));
+
+    }
 }

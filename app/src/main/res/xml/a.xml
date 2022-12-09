@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <accessibility-service
+    android:settingsActivity="com.tile.screenoff.Set"
     android:accessibilityFlags="flagRequestFilterKeyEvents"
     android:canRequestFilterKeyEvents="true"
     android:accessibilityFeedbackType="feedbackGeneric"
