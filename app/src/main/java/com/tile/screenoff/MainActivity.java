@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
     int m;
     TextView t;
     public static IUserService userService;
-    public static boolean isServiceOK = false;
+    public static boolean isServiceOK ;
 
     private final Shizuku.OnBinderReceivedListener BINDER_RECEIVED_LISTENER = new Shizuku.OnBinderReceivedListener() {
         @Override

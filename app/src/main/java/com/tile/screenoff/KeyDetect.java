@@ -13,7 +13,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.os.RemoteException;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -39,27 +38,17 @@ public class KeyDetect extends AccessibilityService implements SharedPreferences
     private boolean exist, canmove;
     int size = 150;
     private int SCREEN_WIDTH, SCREEN_HEIGHT;
-    private PowerManager.WakeLock wakeLock = null;
+
 
     BroadcastReceiver myReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            releaseCaffeine();
             isScrOff = false;
+            b.setKeepScreenOn(false);
         }
     };
 
 
-    private void releaseCaffeine() {
-        if (wakeLock.isHeld())
-            wakeLock.release();
-    }
-
-
-    private void acquireCaffeine() {
-        if (!wakeLock.isHeld())
-            wakeLock.acquire();
-    }
 
     @Override
     protected void onServiceConnected() {
@@ -154,7 +143,6 @@ public class KeyDetect extends AccessibilityService implements SharedPreferences
         View c = b.findViewById(R.id.i);
         c.setBackgroundResource(R.mipmap.ic);
         floatwindow();
-        wakeLock = ((PowerManager) getSystemService(Context.POWER_SERVICE)).newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "1:1");
         registerReceiver(this.myReceiver, new IntentFilter("android.intent.action.SCREEN_OFF"));
         checkService();
     }
@@ -196,20 +184,17 @@ public class KeyDetect extends AccessibilityService implements SharedPreferences
 
     }
 
-    void screenoff(Boolean b) {
+    void screenoff(Boolean bb) {
         if (MainActivity.isServiceOK) {
             try {
-                MainActivity.userService.ScreenOff(b);
-                isScrOff = b;
+                MainActivity.userService.ScreenOff(bb);
+                isScrOff = bb;
             } catch (RemoteException ignored) {
             }
-            if (b)
-                acquireCaffeine();
-            else
-                releaseCaffeine();
         } else
             checkService();
 
+        b.setKeepScreenOn(bb);
     }
 
     @Override
@@ -271,7 +256,6 @@ public class KeyDetect extends AccessibilityService implements SharedPreferences
     @Override
     public void onDestroy() {
         unregisterReceiver(myReceiver);
-        releaseCaffeine();
         GlobalControl = false;
         sp.unregisterOnSharedPreferenceChangeListener(this);
         Shizuku.unbindUserService(MainActivity.userServiceArgs, MainActivity.userServiceConnection,true);
