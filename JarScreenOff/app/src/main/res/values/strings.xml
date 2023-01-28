@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="shortcutoff">息屏运行</string>
+    <string name="shortcuton">停止息屏</string>
+</resources>

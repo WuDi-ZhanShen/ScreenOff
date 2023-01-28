@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Switch
+            android:id="@+id/s1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="开启全局控制" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text="\n不开启全局控制，您也可以正常使用通知栏磁帖息屏、启动活动“ScrOff”息屏。\n\n但开启全局控制后您可以：\n1.长按悬浮球息屏\n2.息屏运行后按下音量+/-键亮屏\n3.双击屏幕亮屏(仅少数设备可用)\n4.立起手机亮屏\n"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textStyle="bold" />
+
+        <Switch
+            android:id="@+id/s2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="显示悬浮球" />
+
+        <Switch
+            android:id="@+id/s3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="仅在横屏时显示" />
+
+        <Switch
+            android:id="@+id/s4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="锁定悬浮球位置" />
+
+        <Switch
+            android:id="@+id/s5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="双击屏幕亮屏" />
+
+
+        <Switch
+            android:id="@+id/s6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="立起手机亮屏" />
+       <Switch
+            android:id="@+id/s7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="音量键亮屏" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:onClick="defaultsize"
+                    android:text="悬浮球大小"
+                    android:textStyle="bold" />
+
+                <SeekBar
+                    android:id="@+id/sb"
+                    android:layout_height="30dp"
+                    android:max="300" />
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:onClick="defaulttran"
+                    android:text="悬浮球透明度"
+                    android:textStyle="bold" />
+
+                <SeekBar
+                    android:id="@+id/sc"
+                    android:layout_height="30dp"
+                    android:max="100" />
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:onClick="defaultsensity"
+                    android:text="立起检测灵敏度"
+                    android:textStyle="bold" />
+
+                <SeekBar
+                    android:id="@+id/sd"
+                    android:layout_height="30dp"
+                    android:max="30" />
+
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+</ScrollView>
