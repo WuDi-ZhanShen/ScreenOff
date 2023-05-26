@@ -208,9 +208,9 @@ public class GlobalService extends AccessibilityService implements SharedPrefere
 
                         int dx = (int) motionEvent.getRawX() - lastX;
                         int dy = (int) motionEvent.getRawY() - lastY;
-                        if (!canmove) return true;
                         if (abs(dx) > 4 || abs(dy) > 4)
                             moved = true;
+                        if (!canmove) return true;
                         params.x = paramX + dx;
                         params.y = paramY + dy;
                         windowManager.updateViewLayout(view, params);
