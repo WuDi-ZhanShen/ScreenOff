@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    android:gravity="bottom"
+    android:onClick="finish"
+    android:orientation="horizontal">
+
+    <View
+        android:id="@+id/left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:autoLink="all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="@string/shortcutoff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/activate_button"
+            style="@android:style/Widget.Material.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20.0dip"
+            android:layout_marginRight="20.0dip"
+            android:background="@drawable/selectground"
+            android:text="@string/not_ok"
+            android:textColor="@color/wrong"
+            android:textSize="16sp" />
+
+        <Switch
+            android:id="@+id/screenoff_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:enabled="false"
+            android:padding="20dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5" />
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow" />
+
+        <ScrollView
+            android:id="@+id/sv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/lll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <Switch
+                        android:id="@+id/s1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/start_global_control"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+                    <Switch
+                        android:id="@+id/s2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/show_fw" />
+
+                    <Switch
+                        android:id="@+id/s3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/show_only_land" />
+
+                    <Switch
+                        android:id="@+id/s4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lock_fw"  />
+
+                    <Switch
+                        android:id="@+id/s5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/double_tap" />
+
+
+                    <Switch
+                        android:id="@+id/s6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/orientation" />
+
+                    <Switch
+                        android:id="@+id/s7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/key_control"   />
+
+                    <Switch
+                        android:id="@+id/s8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/net_ctl" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/scroff"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/scron" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/e1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:hint="25"
+                            android:inputType="number"
+                            android:selectAllOnFocus="true" />
+
+                        <EditText
+                            android:id="@+id/e2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:hint="24"
+                            android:inputType="number"
+                            android:selectAllOnFocus="true" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="1">
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:text="@string/fw_size"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/eb"
+                            android:background="@null"
+                            android:gravity="center"
+                            android:hint="50"
+                            android:inputType="number"
+                            android:selectAllOnFocus="true" />
+                    </TableRow>
+
+                    <SeekBar
+                        android:id="@+id/sb"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:max="100" />
+
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:text="@string/fw_tran"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/ec"
+                            android:background="@null"
+                            android:gravity="center"
+                            android:hint="90"
+                            android:inputType="number"
+                            android:selectAllOnFocus="true" />
+                    </TableRow>
+
+                    <SeekBar
+                        android:id="@+id/sc"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:max="100" />
+
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:text="@string/ori_sensity"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/ed"
+                            android:background="@null"
+                            android:gravity="center"
+                            android:hint="10"
+                            android:inputType="number"
+                            android:selectAllOnFocus="true" />
+                    </TableRow>
+
+                    <SeekBar
+                        android:id="@+id/sd"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:max="30" />
+
+                </TableLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:visibility="gone" />
+
+</LinearLayout>

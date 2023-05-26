@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="shortcutoff">息屏運行</string>
+    <string name="shortcuton">停止息屏</string>
+    <string name="mannually_open">請手動開啟無障礙服務</string>
+    <string name="active_first">請先啟動息屏運行服務</string>
+    <string name="disagree">不同意</string>
+    <string name="agree">同意</string>
+    <string name="privacy">隱私政策</string>
+    <string name="privacypolicy">本軟件不會收集、記錄或上傳您的任何信息。</string>
+    <string name="toosmall">太小啦</string>
+    <string name="all_ok">息屏運行服務一切正常</string>
+    <string name="not_ok">點我啟動息屏運行服務</string>
+    <string name="active_steps">息屏運行需要adb或root權限激活。\nadb激活的方法是：手機打開USB調試連接電腦，電腦在命令窗口執行以下命令：\nadb shell %s\n\n安卓6.0及更高版本的設備，還可以選擇使用Shizuku激活(本質上Shizuku激活和adb權限激活是一樣的)。\n</string>
+    <string name="need_active">需要啟動息屏運行服務</string>
+    <string name="copy_cmd">復製命令</string>
+    <string name="cmd_copy_finish">adb命令已復製到剪切板： adb shell %s</string>
+    <string name="by_root">root激活</string>
+    <string name="active_failed">激活失敗</string>
+    <string name="by_shizuku">Shizuku激活</string>
+    <string name="key_pressed">您按下了%s按键\n其键值为%d</string>
+    <string name="shizuku_notrun">shizuku未運行</string>
+    <string name="help_title">幫助</string>
+    <string name="help_conntent">\n您可以隨時點擊APP主界面的標題『息屏運行』來打開此幫助界面。\n\n\n息屏運行期間，一切APP都會和亮屏時一樣繼續工作。您不必擔心系統一段時間後不操作就自動休眠的問題，只要您打開了我的全局控製服務和懸浮球，系統就是不會自動休眠的，除非您手動按下了電源鍵。\n\n\n立起亮屏功能開啟時，我會在息屏運行後監視設備方向是否改變。這將增加息屏運行後的極少量耗電，幾乎可以忽略不計。\n\n\n註：大部分設備在息屏運行後會屏蔽觸控，所以雙擊亮屏僅在少數設備(已知三星sPen平板、IQOO 9、紅米Note1 LTE等)上有效。\n\n\n小部分設備在息屏運行之後會屏蔽按鍵，所以音量鍵亮屏在這些設備(已知華為鴻蒙的某些手機、Origin OS的某些手機)上無效。有這類設備的酷友可以聯系我，一起研究使用getevent命令來檢測音量按鍵的方法，很可能可行。\n\n\n部分LCD設備息屏運行之後依然有屏幕背光。跟屏蔽按鍵、屏蔽觸控一樣，這都是系統工程師決定的，我無法改變。但是您可以在息屏運行前先把屏幕亮度調到最小，以把背光降到最低。</string>
+    <string name="understand">明白</string>
+    <string name="start_global_control">開啟全局控制</string>
+    <string name="show_fw">顯示懸浮球</string>
+    <string name="show_only_land">僅在橫屏時展示</string>
+    <string name="lock_fw">鎖定懸浮球位置</string>
+    <string name="double_tap">雙擊屏幕亮屏</string>
+    <string name="orientation">立起手機亮屏</string>
+    <string name="key_control">按鍵控制亮滅屏</string>
+    <string name="scroff">息屏</string>
+    <string name="scron">亮屏</string>
+    <string name="fw_size">懸浮球大小</string>
+    <string name="fw_tran">懸浮球透明度</string>
+    <string name="ori_sensity">立起檢測靈敏度</string>
+    <string name="tile">全局控制</string>
+    <string name="service_closed">息屏運行服務已關閉</string>
+    <string name="net_ctl">局域網控製亮滅屏</string>
+</resources>
