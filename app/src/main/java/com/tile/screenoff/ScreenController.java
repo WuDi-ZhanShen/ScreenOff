@@ -1,7 +1,5 @@
-
 package com.tile.screenoff;
 
-import com.tile.screenoff.DisplayControl;
 import android.app.IApplicationThread;
 import android.content.IIntentReceiver;
 import android.content.Intent;
