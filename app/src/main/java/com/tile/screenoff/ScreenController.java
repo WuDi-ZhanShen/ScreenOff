@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -42,7 +43,8 @@ public class ScreenController {
             throw new AssertionError(e);
         }
     }
-
+    public static boolean useDisplayControl =
+            Build.VERSION.SDK_INT >= 34;
     private static Method getBuiltInDisplayMethod;
     private static Method setDisplayPowerModeMethod;
     private static boolean listenVolumeKey = false;
@@ -56,13 +58,36 @@ public class ScreenController {
     }
 
     public static IBinder getBuiltInDisplay() {
-
         try {
-            Method method = getGetBuiltInDisplayMethod();
-            return Build.VERSION.SDK_INT < Build.VERSION_CODES.Q ? (IBinder) method.invoke(null, 0) : (IBinder) method.invoke(null);
-        } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
+            // Change the power mode for all physical displays
+            Log.e("getBuiltInDisplay","Android 14"+useDisplayControl);
+            if (useDisplayControl) {
+                long[] physicalDisplayIds = DisplayControl.getPhysicalDisplayIds();
+                if (physicalDisplayIds == null) {
+                    Log.e("getBuiltInDisplay", "Could not get physical display ids");
+                    return null;
+                }
+
+                for (long physicalDisplayId : physicalDisplayIds) {
+                    return DisplayControl.getPhysicalDisplayToken(
+                            physicalDisplayId);
+
+                }
+            } else {
+                Method method = getGetBuiltInDisplayMethod();
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                    // call getBuiltInDisplay(0)
+                    return (IBinder) method.invoke(null, 0);
+                }
+
+                // call getInternalDisplayToken()
+                return (IBinder) method.invoke(null);
+            }
+        } catch(InvocationTargetException | IllegalAccessException | NoSuchMethodException e){
+            Log.e("Could not invoke method", String.valueOf(e));
             return null;
         }
+        return null;
     }
 
     private static Method getSetDisplayPowerModeMethod() throws NoSuchMethodException {
@@ -81,6 +106,7 @@ public class ScreenController {
     }
 
     public static void main(String[] args) {
+        Log.e("getBuiltInDisplay","Android 14"+useDisplayControl);
         //检查权限
         int uid = android.os.Process.myUid();
         if (uid != 0 && uid != 2000) {
