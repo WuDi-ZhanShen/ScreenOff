@@ -3,6 +3,7 @@ package com.tile.screenoff;
 import static java.lang.Math.abs;
 
 import android.accessibilityservice.AccessibilityService;
+import android.app.ActivityManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -37,6 +38,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import rikka.shizuku.Shizuku;
+
 public class GlobalService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 
@@ -48,9 +51,29 @@ public class GlobalService extends AccessibilityService implements SharedPrefere
     int size, sensity, scrOnKey, scrOffKey;
     private int SCREEN_WIDTH, SCREEN_HEIGHT;
     OrientationEventListener listener;
-
-    private boolean isServiceOK = false;
     IScreenOff iScreenOff = null;
+
+
+    public static boolean isScreenOffServiceRunning(Context context) {
+
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
+
+        List<ActivityManager.RunningServiceInfo> runningServices = activityManager.getRunningServices(Integer.MAX_VALUE);
+        if (runningServices.isEmpty()) {
+            return false;
+        }
+
+        for (ActivityManager.RunningServiceInfo serviceInfo : runningServices) {
+//            Log.d("TAG", "isGyroFixServiceRunning: "+serviceInfo.toString());
+//            Log.d("TAG", "GyroFixService.class.getName(): "+GyroFixService.class.getName());
+//            Log.d("TAG", "serviceInfo.service.getClassName(): "+serviceInfo.service.getClassName());
+            if (GlobalService.class.getName().equals(serviceInfo.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+
+    }
 
     final BroadcastReceiver myReceiver = new BroadcastReceiver() {
 
@@ -62,13 +85,12 @@ public class GlobalService extends AccessibilityService implements SharedPrefere
                     IBinder binder = binderContainer.getBinder();
                     //如果binder已经失去活性了，则不再继续解析
                     if (!binder.pingBinder()) break;
-                    isServiceOK = true;
                     iScreenOff = IScreenOff.Stub.asInterface(binder);
                     floatWindow();
                     break;
                 case Intent.ACTION_SCREEN_OFF:
                     try {
-                        if (isServiceOK) iScreenOff.updateNowScreenState(false);
+                         iScreenOff.updateNowScreenState(false);
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
@@ -79,7 +101,7 @@ public class GlobalService extends AccessibilityService implements SharedPrefere
                 case Intent.ACTION_SCREEN_ON:
                 case Intent.ACTION_USER_PRESENT:
                     try {
-                        if (isServiceOK) iScreenOff.updateNowScreenState(true);
+                        iScreenOff.updateNowScreenState(true);
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
@@ -136,7 +158,6 @@ public class GlobalService extends AccessibilityService implements SharedPrefere
     protected void onServiceConnected() {
         super.onServiceConnected();
         sp = getSharedPreferences("s", 0);
-
 
         sensity = sp.getInt("sensity", 10);
         listener = new OrientationEventListener(this) {
@@ -251,13 +272,16 @@ public class GlobalService extends AccessibilityService implements SharedPrefere
         filter.addAction("action.ScrOff");
         filter.addAction("intent.screenoff.sendBinder");
         filter.addAction("intent.screenoff.exit");
-        registerReceiver(myReceiver, filter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(myReceiver, new IntentFilter("intent.screenoff.sendBinder"), RECEIVER_EXPORTED);
+        } else {
+            registerReceiver(myReceiver, new IntentFilter("intent.screenoff.sendBinder"));
+        }
         sp.registerOnSharedPreferenceChangeListener(this);
     }
 
 
     void screenoff(Boolean bb) {
-        if (!isServiceOK) return;
         try {
             if (iScreenOff.getNowScreenState() == 0) return;
             iScreenOff.setPowerMode(bb);
@@ -272,7 +296,7 @@ public class GlobalService extends AccessibilityService implements SharedPrefere
 
     @Override
     protected boolean onKeyEvent(KeyEvent event) {
-        if (!volume || !isServiceOK || event.getAction() == KeyEvent.ACTION_UP)
+        if (!volume || event.getAction() == KeyEvent.ACTION_UP)
             return super.onKeyEvent(event);
 
         try {
@@ -294,7 +318,6 @@ public class GlobalService extends AccessibilityService implements SharedPrefere
     }
 
     public void floatWindow() {
-        if (!isServiceOK) return;
         if (sp.getBoolean("float", true)) {
             if (!exist) {
                 windowManager.addView(view, params);

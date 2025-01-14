@@ -9,7 +9,7 @@
     <string name="privacy">隐私政策</string>
     <string name="privacypolicy">本软件不会收集、记录或上传您的任何信息。\n</string>
     <string name="toosmall">太小啦！</string>
-    <string name="all_ok">息屏运行服务一切正常</string>
+    <string name="all_ok">服务已启动</string>
     <string name="not_ok">点我启动息屏运行服务</string>
     <string name="active_steps">息屏运行需要adb或root权限激活。\n\nadb激活的方法是：手机打开USB调试连接电脑，电脑在命令窗口执行以下命令：\nadb shell %s\n\n安卓6.0及更高版本的设备，还可以选择使用Shizuku激活(本质上Shizuku激活和adb权限激活是一样的)。\n</string>
     <string name="need_active">需要启动息屏运行服务</string>
@@ -21,7 +21,7 @@
     <string name="key_pressed">您按下了%s按键\n其键值为%d</string>
     <string name="shizuku_notrun">shizuku未运行</string>
     <string name="help_title">帮助</string>
-    <string name="help_conntent">\n您可以随时点击APP主界面的标题‘息屏运行’来打开此帮助界面。\n\n\n息屏运行期间，一切APP都会和亮屏时一样继续工作。您不必担心系统一段时间后不操作就自动休眠的问题，只要您打开了我的全局控制服务和悬浮球，系统就是不会自动休眠的，除非您手动按下了电源键。\n\n\n立起亮屏功能开启时，我会在息屏运行后监视设备方向是否改变。这将增加息屏运行后的极少量耗电，几乎可以忽略不计。\n\n\n注：大部分设备在息屏运行后会屏蔽触控，所以双击亮屏仅在少数设备(已知三星sPen平板、IQOO 9、红米Note1 LTE等)上有效。\n\n\n小部分设备在息屏运行之后会屏蔽按键，所以音量键亮屏在这些设备(已知华为鸿蒙的某些手机、Origin OS的某些手机)上无效。有这类设备的酷友可以联系我，一起研究使用getevent命令来检测音量按键的方法，很可能可行。\n\n\n部分LCD设备息屏运行之后依然有屏幕背光。跟屏蔽按键、屏蔽触控一样，这都是系统工程师决定的，我无法改变。但是您可以在息屏运行前先把屏幕亮度调到最小，以把背光降到最低。</string>
+    <string name="help_conntent">您可以随时点击APP主界面的标题‘息屏运行’来打开此帮助界面。\n\n\n息屏运行期间，一切APP都会和亮屏时一样继续工作。您不必担心系统一段时间后不操作就自动休眠的问题，只要您打开了全局控制服务和悬浮球，系统就是不会自动休眠的，除非您手动按下了电源键。\n\n\n立起亮屏功能开启时，我会在息屏运行后监视设备方向是否改变。这将增加息屏运行后的极少量耗电，几乎可以忽略不计。\n\n\n注：大部分设备在息屏运行后会屏蔽触控，所以双击亮屏仅在少数设备(已知三星sPen平板、IQOO 9、红米Note1 LTE等)上有效。\n\n\n小部分设备在息屏运行之后会屏蔽按键，所以音量键亮屏在这些设备(已知华为鸿蒙的某些手机、Origin OS的某些手机)上无效。有这类设备的酷友可以联系我，一起研究使用getevent命令来检测音量按键的方法，很可能可行。\n\n\n部分LCD设备息屏运行之后依然有屏幕背光。跟屏蔽按键、屏蔽触控一样，这都是系统工程师决定的，我无法改变。但是您可以在息屏运行前先把屏幕亮度调到最小，以把背光降到最低。</string>
     <string name="understand">明白</string>
     <string name="start_global_control">开启全局控制</string>
     <string name="show_fw">显示悬浮球</string>

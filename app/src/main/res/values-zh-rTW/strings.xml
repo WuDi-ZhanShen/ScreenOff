@@ -9,7 +9,7 @@
     <string name="privacy">隱私政策</string>
     <string name="privacypolicy">本軟件不會收集、記錄或上傳您的任何信息。</string>
     <string name="toosmall">太小啦</string>
-    <string name="all_ok">息屏運行服務一切正常</string>
+    <string name="all_ok">服務已啟動</string>
     <string name="not_ok">點我啟動息屏運行服務</string>
     <string name="active_steps">息屏運行需要adb或root權限激活。\nadb激活的方法是：手機打開USB調試連接電腦，電腦在命令窗口執行以下命令：\nadb shell %s\n\n安卓6.0及更高版本的設備，還可以選擇使用Shizuku激活(本質上Shizuku激活和adb權限激活是一樣的)。\n</string>
     <string name="need_active">需要啟動息屏運行服務</string>

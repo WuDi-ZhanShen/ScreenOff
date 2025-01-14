@@ -4,22 +4,31 @@ plugins {
 
 android {
     namespace 'com.tile.screenoff'
-    compileSdk 33
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.tile.screenoff"
         minSdk 21
-        targetSdk 33
-        versionCode 17
-        versionName "17"
+        targetSdk 35
+        versionCode 21
+        versionName "21"
         multiDexEnabled false
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        release {
+            storeFile file('D:\\key.keystore') // Keystore文件的路径
+            storePassword 'wewewe' // Keystore密码
+            keyAlias 'key0' // Key别名
+            keyPassword 'wewewe' // Key密码
+        }
+    }
     buildTypes {
         release {
+            shrinkResources false
+            signingConfig signingConfigs.release
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
@@ -29,6 +38,9 @@ android {
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
+    }
+    buildFeatures {
+        aidl true
     }
 }
 

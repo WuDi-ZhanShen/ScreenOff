@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.RemoteException;
 import android.util.Log;
 
@@ -60,7 +61,7 @@ public class ScreenController {
     public static IBinder getBuiltInDisplay() {
         try {
             // Change the power mode for all physical displays
-            Log.e("getBuiltInDisplay","Android 14"+useDisplayControl);
+            Log.e("getBuiltInDisplay","Android 14" + useDisplayControl);
             if (useDisplayControl) {
                 long[] physicalDisplayIds = DisplayControl.getPhysicalDisplayIds();
                 if (physicalDisplayIds == null) {
@@ -106,7 +107,12 @@ public class ScreenController {
     }
 
     public static void main(String[] args) {
-        Log.e("getBuiltInDisplay","Android 14"+useDisplayControl);
+
+        if (Looper.getMainLooper() == null) {
+            Looper.prepareMainLooper();
+        }
+
+        Log.e("getBuiltInDisplay", "Android 14" + useDisplayControl);
         //检查权限
         int uid = android.os.Process.myUid();
         if (uid != 0 && uid != 2000) {
@@ -115,7 +121,7 @@ public class ScreenController {
             return;
         }
 
-        System.out.println("Start ScreenController Service. Enter \"exit\" here at any time to exit.");
+        System.out.println("Start ScreenController Service.");
 
         isBroadcastSent = sendBinderToAppByStickyBroadcast();//发送广播，将binder传给APP
         if (!isBroadcastSent) {
@@ -132,23 +138,26 @@ public class ScreenController {
             }
         });
 
-        try {
-            Scanner scanner = new Scanner(System.in);
-            //用来保持进程不退出，同时如果用户输入exit则程序退出
-            String inline;
-            while ((inline = scanner.nextLine()) != null) {
-                if (inline.equals("exit"))
-                    break;
-            }
-            scanner.close();
-        } catch (Exception unused) {
-            //用户使用nohup命令启动，scanner捕捉不到任何输入,会抛出异常。
-            while (true) ;
-        }
+//        try {
+//            Scanner scanner = new Scanner(System.in);
+//            //用来保持进程不退出，同时如果用户输入exit则程序退出
+//            String inline;
+//            while ((inline = scanner.nextLine()) != null) {
+//                if (inline.equals("exit"))
+//                    break;
+//            }
+//            scanner.close();
+//        } catch (Exception unused) {
+//            //用户使用nohup命令启动，scanner捕捉不到任何输入,会抛出异常。
+//            while (true) ;
+//        }
+
+        Looper.loop();
 
 
         if (isBroadcastSent) isBroadcastSent = !removeStickyBroadcast();
         System.out.println("Stop ScreenController Service.\n");
+        System.exit(0);
     }
 
     private static void stopListenVolumeKey() {
@@ -208,6 +217,7 @@ public class ScreenController {
                     if (turnOff) {
                         if (screenState == ScreenState.STATE_ON) {
                             setDisplayPowerMode(getBuiltInDisplay(), POWER_MODE_OFF);
+//                            setDisplayPowerMode(getBuiltInDisplay(), POWER_MODE_NORMAL);
                             screenState = ScreenState.STATE_SPECIAL;
                         }
                     } else {

@@ -105,8 +105,11 @@ public class MainActivity extends Activity {
         }
 
         setButtonsOnclick(isNight, sp);
-        registerReceiver(mBroadcastReceiver, new IntentFilter("intent.screenoff.sendBinder"));
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(mBroadcastReceiver, new IntentFilter("intent.screenoff.sendBinder"), RECEIVER_EXPORTED);
+        } else {
+            registerReceiver(mBroadcastReceiver, new IntentFilter("intent.screenoff.sendBinder"));
+        }
         super.onCreate(savedInstanceState);
 
     }
@@ -434,6 +437,7 @@ public class MainActivity extends Activity {
         button.setOnClickListener(null);
         button.setOnLongClickListener(view -> {
             try {
+                sendBroadcast(new Intent("intent.screenoff.exit"));
                 iScreenOff.closeAndExit();
             } catch (RemoteException e) {
                 e.printStackTrace();
